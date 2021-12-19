@@ -1,0 +1,1 @@
+pm2 start static.js -l ../logs/auoi-static-log.$(date +%Y%m%d).log -o ../logs/auoi-static-out.$(date +%Y%m%d).log -e ../logs/auoi-static-err.$(date +%Y%m%d).log
