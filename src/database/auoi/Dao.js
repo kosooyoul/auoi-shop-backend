@@ -80,6 +80,15 @@ var Dao = {
 
 			return deleted.deletedCount != 0;
 		},
+		listBySellerAccountSid: async function(sellerAccountSid, lastId, count) {
+			const matches = {};
+			matches["sellerAccountSid"] = sellerAccountSid;
+			if (lastId) {
+				matches["_id"] = {$lt: lastId};
+			}
+
+			return await Product.find(matches).sort({"_id": -1}).limit(Math.min(count || 10, 20));
+		},
 	},
 
 	order: {
