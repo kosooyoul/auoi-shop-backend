@@ -186,6 +186,19 @@ var Apis = {
 			"createdAt": product.createdAt,
 		}))}, Codes.SUCCESS, null);
 	},
+	'product/list/by-seller': async function(context, params) {
+		const products = await Dao.product.listBySellerAccountSid(context.currentAccountSid, params.lastId, params.count);
+
+		return result(true, {'products': products.map(product => ({
+			"id": product._id,
+			"code": product.code,
+			"title": product.title,
+			"unitPrice": product.unitPrice,
+			"currency": product.currency,
+			"availableStock": product.availableStock,
+			"createdAt": product.createdAt,
+		}))}, Codes.SUCCESS, null);
+	},
 	'order/create': async function(context, params) {
 		const account = context.currentAccount;
 		if (!account) {
@@ -238,7 +251,7 @@ var Apis = {
 			"code": order.code,
 		}, Codes.SUCCESS, null);
 	},
-	'order/list/ordered': async function(context, params) {
+	'order/list/by-orderer': async function(context, params) {
 		const account = context.currentAccount;
 		if (!account) {
 			return result(false, null, Codes.UNKNOWN_ERROR, "current account is not existing");
@@ -259,7 +272,7 @@ var Apis = {
 			"createdAt": order.createdAt,
 		}))}, Codes.SUCCESS, null);
 	},
-	'order/list/received': async function(context, params) {
+	'order/list/by-seller': async function(context, params) {
 		const account = context.currentAccount;
 		if (!account) {
 			return result(false, null, Codes.UNKNOWN_ERROR, "current account is not existing");
